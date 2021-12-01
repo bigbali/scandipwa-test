@@ -13,7 +13,17 @@ export default class CheckoutProgress extends PureComponent {
     }
 
     renderCheckoutSteps() {
-        const renderCheckpoint = (step, index, currentIndex) => {
+        const steps = Object.values(this.props.steps);
+
+        const redirect = (step) => {
+            this.props.history.push(`/checkout${step.url}`)
+        }
+
+        const renderCheckpoint = (
+            step,
+            index,
+            currentIndex,
+            maxIndex) => {
             return (
                 <a  // If we are right here or we have passed, add class
                     className={`checkpoint 
@@ -22,7 +32,10 @@ export default class CheckoutProgress extends PureComponent {
                             : ""}`}
                     data-value={step.title.value}
                     onClick={() => { // Redirect
-                        this.props.history.push(`/checkout${step.url}`)
+                        if ((index <= currentIndex)
+                            && (currentIndex !== maxIndex)) {
+                            redirect(step);
+                        }
                     }}
                 >
                     <span>
@@ -33,7 +46,6 @@ export default class CheckoutProgress extends PureComponent {
                 </a>
             )
         }
-        const steps = Object.values(this.props.steps);
 
         // Used to determine which is the index of current step
         return steps.map((step, index) => {
@@ -58,7 +70,12 @@ export default class CheckoutProgress extends PureComponent {
                             }`}>
                     </div>
                     {index < steps.length - 1
-                        && renderCheckpoint(step, index, this.state.currentIndex)}
+                        && renderCheckpoint(
+                            step,
+                            index,
+                            this.state.currentIndex,
+                            steps.length - 1
+                        )}
                     {/* Check if last step, and if so, don't render checkpoint */}
                 </React.Fragment>
             )
