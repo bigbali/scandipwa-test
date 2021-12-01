@@ -37,7 +37,6 @@ export default class CheckoutProgress extends PureComponent {
 
         // Used to determine which is the index of current step
         return steps.map((step, index) => {
-            console.dir(step)
 
             if (this.props.currentStep === step) {
                 this.setState({
