@@ -1,0 +1,69 @@
+.CheckoutProgress {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    height: 4rem;
+    font-size: 2rem;
+    // background-color: blue;
+
+    .step {
+        height: 5px;
+        flex: 1;
+        background-color: var(--color-checkout-bar-inactive);
+        background-image: linear-gradient(var(--primary-base-color),
+                var(--primary-base-color));
+        background-repeat: no-repeat;
+        background-size: 0 100%;
+        background-position: 0 0;
+        transition:
+            background-size 0.2s ease,
+            background-position 0.2s ease,
+            color 0.2s;
+
+        &:first-of-type,
+        &:last-of-type {
+            flex: 2;
+        }
+
+        &.current,
+        &.previous {
+            // background-color: var(--primary-base-color);
+            background-size: 100% 100%;
+        }
+    }
+
+    .checkpoint {
+        display: grid;
+        place-items: center;
+        position: relative;
+        color: white;
+        border-radius: 50%;
+        height: 3rem;
+        width: 3rem;
+        margin: 10px;
+        font-size: 1.5rem;
+        background-color: var(--color-checkout-bar-inactive);
+        transition: background-color 0.2s;
+
+        &:hover {
+            text-decoration: none !important;
+        }
+
+        &::after {
+            content: attr(data-value);
+            position: absolute;
+            top: 100%;
+            color: black;
+            font-size: 1rem;
+        }
+
+        span {
+            display: block;
+            height: fit-content;
+        }
+
+        &.current {
+            background-color: var(--primary-base-color);
+        }
+    }
+}
