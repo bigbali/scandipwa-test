@@ -6,8 +6,10 @@
         "@scandipwa/eslint-config": "0.1.33",
         "@scandipwa/scandipwa": "4.5.1",
         "@scandipwa/scandipwa-scripts": "2.4.18",
+        "@testing-library/react": "^12.1.2",
         "@tilework/mosaic": "0.1.4",
-        "@tilework/mosaic-craco": "0.0.5"
+        "@tilework/mosaic-craco": "0.0.5",
+        "react-router-dom": "^6.0.2"
     },
     "scandipwa": {
         "type": "theme",
@@ -19,7 +21,8 @@
     },
     "scripts": {
         "start": "scandipwa-scripts start",
-        "build": "scandipwa-scripts build"
+        "build": "scandipwa-scripts build",
+        "test": "react-scripts test"
     },
     "browserslist": {
         "production": [
@@ -35,7 +38,9 @@
     },
     "eslintConfig": {
         "extends": "@scandipwa",
-        "ignorePatterns": ["src/**"]
+        "ignorePatterns": [
+            "src/**"
+        ]
     },
     "proxy": "https://demo100-ors-1588667385-swpwa451-zco.scandipwa.cloud/"
 }

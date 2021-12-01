@@ -1,4 +1,5 @@
 import React, { PureComponent } from 'react';
+import CheckMark from '../CheckMark';
 import './CheckoutProgress.style.scss';
 
 export default class CheckoutProgress extends PureComponent {
@@ -7,14 +8,17 @@ export default class CheckoutProgress extends PureComponent {
         this.state = {
             currentIndex: 1
         }
+
+        this.renderCheckoutSteps = this.renderCheckoutSteps.bind(this);
     }
-    renderCheckoutSteps = () => {
+
+    renderCheckoutSteps() {
         const renderCheckpoint = (step, index, currentIndex) => {
             return (
                 <a  // If we are right here or we have passed, add class
                     className={`checkpoint 
                         ${index <= currentIndex
-                            ? "current"
+                            ? "active"
                             : ""}`}
                     data-value={step.title.value}
                     onClick={() => { // Redirect
@@ -22,7 +26,9 @@ export default class CheckoutProgress extends PureComponent {
                     }}
                 >
                     <span>
-                        {index + 1}
+                        {index < currentIndex
+                            ? <CheckMark />
+                            : index + 1}
                     </span>
                 </a>
             )
@@ -31,6 +37,8 @@ export default class CheckoutProgress extends PureComponent {
 
         // Used to determine which is the index of current step
         return steps.map((step, index) => {
+            console.dir(step)
+
             if (this.props.currentStep === step) {
                 this.setState({
                     currentIndex: index
@@ -38,20 +46,22 @@ export default class CheckoutProgress extends PureComponent {
             } // Check current index
 
             return (
-                <>
-                    <div className={`step 
+                <React.Fragment key={index}>
+                    <div
+                        className={`step 
                         ${this.props.currentStep === step
-                            ? "current"
-                            : ""
-                        }
+                                ? "current"
+                                : ""
+                            }
                         ${index < this.state.currentIndex
-                            ? "previous"
-                            : ""
-                        }`}>
+                                ? "previous"
+                                : ""
+                            }`}>
                     </div>
-                    {index < steps.length - 1 // Check if last step
+                    {index < steps.length - 1
                         && renderCheckpoint(step, index, this.state.currentIndex)}
-                </>
+                    {/* Check if last step, and if so, don't render checkpoint */}
+                </React.Fragment>
             )
         })
     }

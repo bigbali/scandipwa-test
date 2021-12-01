@@ -4,7 +4,6 @@
     align-items: center;
     height: 4rem;
     font-size: 2rem;
-    // background-color: blue;
 
     .step {
         height: 5px;
@@ -27,7 +26,6 @@
 
         &.current,
         &.previous {
-            // background-color: var(--primary-base-color);
             background-size: 100% 100%;
         }
     }
@@ -36,12 +34,13 @@
         display: grid;
         place-items: center;
         position: relative;
-        color: white;
+        color: #9c9c9c;
         border-radius: 50%;
         height: 3rem;
         width: 3rem;
         margin: 10px;
-        font-size: 1.5rem;
+        font-size: 1.3rem;
+        font-weight: 700;
         background-color: var(--color-checkout-bar-inactive);
         transition: background-color 0.2s;
 
@@ -52,18 +51,32 @@
         &::after {
             content: attr(data-value);
             position: absolute;
-            top: 100%;
-            color: black;
-            font-size: 1rem;
+            top: 130%;
+            color: var(--color-checkout-bar-inactive);
+            font-size: 1.4rem;
+            font-weight: 700;
+            width: max-content;
         }
 
         span {
-            display: block;
+            display: grid;
+            place-items: center;
             height: fit-content;
         }
 
-        &.current {
+        &.active {
             background-color: var(--primary-base-color);
+            color: white;
+
+            &::after {
+                color: black;
+            }
+        }
+
+        .checkmark {
+            width: 1.2rem;
+            height: 1.2rem;
+            margin: auto;
         }
     }
 }
